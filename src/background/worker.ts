@@ -5,6 +5,7 @@ chrome.tabs.onUpdated.addListener((_tabId, changeInfo) => {
   if (!changeInfo.url || changeInfo.url.startsWith("chrome://")) {
     return;
   }
+
   console.log(`@@@Tab: URL changed to ${changeInfo.url}`, changeInfo);
 });
 

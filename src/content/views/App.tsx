@@ -35,13 +35,6 @@ function getSystemTheme() {
     ? 'dark' 
     : 'light';
 }
-
-// Listen for theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-  const newTheme = e.matches ? 'dark' : 'light';
-  console.log('Theme changed to:', newTheme);
-});
-
 	*/
 
   const playAudio = (url: string) => {
@@ -53,7 +46,23 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
   };
 
   useEffect(() => {
-    window.document.documentElement.classList.add("dark");
+    //window.document.documentElement.classList.add("dark");
+    //
+
+    const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    console.info(theme);
+
+    // Listen for theme changes
+    /*
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (e) => {
+        const newTheme = e.matches ? "dark" : "light";
+        console.log("Theme changed to:", newTheme);
+      });
+		*/
 
     document.addEventListener("dblclick", () => {
       const word = window.getSelection()?.toString().trim();

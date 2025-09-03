@@ -20,6 +20,8 @@ export default defineManifest({
     "storage",
     "offscreen",
     "tabs",
+    "activeTab",
+    "scripting",
   ],
   content_scripts: [
     {
