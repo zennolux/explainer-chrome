@@ -1,14 +1,6 @@
 import init, { explain, type Explainer } from "@zennolux/explainer-wasm";
 import { closeDocument, createDocument } from "@/lib/offscreen";
 
-chrome.tabs.onUpdated.addListener((_tabId, changeInfo) => {
-  if (!changeInfo.url || changeInfo.url.startsWith("chrome://")) {
-    return;
-  }
-
-  console.log(`@@@Tab: URL changed to ${changeInfo.url}`, changeInfo);
-});
-
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   (async () => {
     const { type, target, data } = message;
