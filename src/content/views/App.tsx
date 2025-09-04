@@ -60,53 +60,59 @@ function App() {
 
   return (
     <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-      <SheetContent className="h-full font-mono z-[100000] dark">
-        <SheetHeader className="h-[12%]">
-          <SheetTitle className="flex justify-center items-center">
+      <SheetContent
+        className="tw:border-border tw:outline-ring/50 tw:bg-background tw:text-foreground tw:h-full tw:font-mon"
+        style={{ zIndex: 1000000 }}
+        side="bottom"
+      >
+        <SheetHeader className="tw:h-[12%]">
+          <SheetTitle className="tw:flex tw:justify-center tw:items-center">
             {explainer?.word}
           </SheetTitle>
-          <SheetDescription className="mt-2 flex justify-center items-center gap-2">
+          <SheetDescription className="tw:mt-2 tw:flex tw:justify-center tw:items-center tw:gap-2">
             <p>[{explainer?.pronunciation.phonetic_symbol}]</p>
             <p>
               <Volume
-                className="text-2xl hover:text-gray-300"
+                className="tw:text-2xl tw:hover:text-gray-300"
                 onClick={() => playAudio(explainer?.pronunciation.audio_url!)}
               />
             </p>
           </SheetDescription>
         </SheetHeader>
-        <ScrollArea className="w-[99%] h-[78%]">
-          <div className="mt-2 mx-2">
-            <h4 className="text-gray-200">Basic Meanings:</h4>
+        <ScrollArea className="tw:w-[99%] tw:h-[78%]">
+          <div className="tw:mt-2 tw:mx-2">
+            <h4 className="tw:dark:text-gray-200">Basic Meanings:</h4>
             {explainer?.basic_meanings.map((item) => (
-              <div className="mt-2 flex gap-2">
-                <h4 className="flex justify-center items-center text-gray-100 font-extrabold w-15 h-5 bg-gray-800 shadow-background">
+              <div className="tw:mt-2 tw:flex tw:gap-2">
+                <h4 className="tw:flex tw:justify-center tw:items-center tw:text-gray-100 tw:font-extrabold tw:w-15 tw:h-5 tw:bg-gray-800 tw:shadow-background">
                   {item.attr}
                 </h4>
-                <p className="text-gray-300">{item.value}</p>
+                <p className="tw:dark:text-gray-300">{item.value}</p>
               </div>
             ))}
           </div>
           {explainer?.advanced_meanings.length! > 0 && (
-            <div className="mt-2 mx-2">
-              <h4 className="text-gray-200">Advanced Meanings:</h4>
+            <div className="tw:mt-2 tw:mx-2">
+              <h4 className="tw:dark:text-gray-200">Advanced Meanings:</h4>
               {explainer?.advanced_meanings.map((item, index) => (
-                <div className="mt-2" key={index}>
-                  <div className="flex flex-col gap-2">
-                    <h4 className="flex justify-center items-center text-gray-100 font-extrabold w-15 h-5 bg-gray-800 shadow-background">
+                <div className="tw:mt-2" key={index}>
+                  <div className="tw:flex tw:flex-col tw:gap-2">
+                    <h4 className="tw:flex tw:justify-center tw:items-center tw:text-gray-100 tw:font-extrabold tw:w-15 tw:h-5 tw:bg-gray-800 tw:shadow-background">
                       {item.attr}
                     </h4>
                     <div>
                       {item.values.map((value, key) => (
                         <>
-                          <div className="flex gap-2 mt-2" key={key}>
-                            <h4 className="text-gray-500">{key + 1}.</h4>
-                            <div>
-                              <p className="text-gray-300">{value.en}</p>
-                              <p className="text-gray-300">{value.cn}</p>
+                          <div className="tw:flex tw:gap-2 tw:mt-2" key={key}>
+                            <h4 className="tw:text-gray-500">{key + 1}.</h4>
+                            <div className="tw:flex tw:flex-col tw:gap-1">
+                              <p>{value.en}</p>
+                              <p>{value.cn}</p>
                             </div>
                           </div>
-                          {key < item.values.length - 1 && <Separator />}
+                          {key < item.values.length - 1 && (
+                            <Separator className="tw:mt-1" />
+                          )}
                         </>
                       ))}
                     </div>
@@ -116,40 +122,42 @@ function App() {
             </div>
           )}
           {explainer?.sentences.length! > 0 && (
-            <div className="mt-2 mx-2">
-              <h4 className="text-gray-200">Sample Sentences:</h4>
+            <div className="tw:mt-2 tw:mx-2">
+              <h4 className="tw:dark:text-gray-200">Sample Sentences:</h4>
               {explainer?.sentences.map((item, index) => (
-                <div className="mt-2" key={index}>
-                  <div className="flex gap-2 items-start">
-                    <div className="flex gap-1">
-                      <h4 className="text-gray-500">{index + 1}.</h4>
+                <div className="tw:mt-2" key={index}>
+                  <div className="tw:flex tw:gap-2 tw:items-start">
+                    <div className="tw:flex tw:gap-1">
+                      <h4 className="tw:text-gray-500">{index + 1}.</h4>
                       <p>
                         <Volume
-                          className="text-2xl text-gray-400 hover:text-gray-300"
+                          className="tw:text-2xl tw:text-gray-400 tw:hover:text-gray-300"
                           onClick={() => playAudio(item.audio_url)}
                         />
                       </p>
                     </div>
-                    <div>
-                      <p className="text-gray-300">
+                    <div className="tw:flex tw:flex-col tw:gap-1">
+                      <p>
                         {parse(
                           item.en.replace(
                             new RegExp(`(${explainer.word})`, "gi"),
-                            `<span className="font-extrabold text-gray-100 underline underline-offset-4">$1</span>`
+                            `<span className="tw:font-extrabold tw:dark:text-gray-100 tw:underline tw:underline-offset-4">$1</span>`
                           )
                         )}
                       </p>
-                      <p className="text-gray-300">{item.cn}</p>
+                      <p>{item.cn}</p>
                     </div>
                   </div>
-                  {index < explainer.sentences.length - 1 && <Separator />}
+                  {index < explainer.sentences.length - 1 && (
+                    <Separator className="tw:mt-1" />
+                  )}
                 </div>
               ))}
             </div>
           )}
           <ScrollBar orientation="vertical" />
         </ScrollArea>
-        <SheetFooter className="h-[10%] w-full"></SheetFooter>
+        <SheetFooter className="tw:h-[10%] tw:w-full"></SheetFooter>
       </SheetContent>
     </Sheet>
   );
