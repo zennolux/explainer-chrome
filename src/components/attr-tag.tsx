@@ -1,9 +1,9 @@
 export function AttrTag({ value }: { value: string }) {
   return (
     <p
-      className="tw:bg-gray-500"
       style={{
         fontWeight: "bold",
+        background: "#99a1af",
         width: "64px",
         height: "24px",
         display: "flex",
