@@ -54,8 +54,8 @@ function App() {
       <IoCloseCircleOutline
         style={{
           position: "fixed",
-          top: "0",
-          right: "0",
+          top: 0,
+          right: 0,
           zIndex: 20000,
           color: "#99a1af",
           fontSize: "24px",
@@ -85,7 +85,9 @@ function App() {
             gap: "0.5rem",
           }}
         >
-          <h2 style={{ fontSize: "24px", fontWeight: "bold" }}>
+          <h2
+            style={{ marginTop: "1rem", fontSize: "24px", fontWeight: "bold" }}
+          >
             {explainer?.word}
           </h2>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -93,287 +95,135 @@ function App() {
             <p>
               <Volume
                 className="tw:hover:text-gray-300"
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "22px" }}
                 onClick={() => playAudio(explainer?.pronunciation.audio_url!)}
               />
             </p>
           </div>
         </div>
         <ScrollArea style={{ height: "75%" }}>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
-          <p>Just a test!</p>
+          <div
+            style={{
+              marginTop: "16px",
+              marginLeft: "16px",
+              marginRight: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "30px",
+            }}
+          >
+            <div>
+              <h5
+                style={{ marginTop: 0, fontSize: "18px", fontWeight: "bold" }}
+              >
+                Basic Meanings:
+              </h5>
+              {explainer?.basic_meanings.map((item) => (
+                <div
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      width: "64px",
+                      height: "24px",
+                      background: "#99a1af",
+                      display: "flex",
+                      flexShrink: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {item.attr}
+                  </p>
+                  <p style={{ flex: 1 }}>{item.value}</p>
+                </div>
+              ))}
+            </div>
+            {explainer?.advanced_meanings && (
+              <div>
+                <h5
+                  style={{ marginTop: 0, fontSize: "18px", fontWeight: "bold" }}
+                >
+                  Advanced Meanings:
+                </h5>
+                {explainer?.advanced_meanings.map((item) => (
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        width: "64px",
+                        height: "24px",
+                        background: "#99a1af",
+                        display: "flex",
+                        flexShrink: 0,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.attr}
+                    </p>
+                    {item.values.map((value, index) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "start",
+                          gap: "16px",
+                        }}
+                      >
+                        <p style={{ fontWeight: "bold", color: "#99a1af" }}>
+                          {index + 1}.
+                        </p>
+                        <div>
+                          <p>{value.en}</p>
+                          <p style={{ marginTop: "10px" }}>{value.cn}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+            {explainer?.sentences && (
+              <div>
+                <h5
+                  style={{ marginTop: 0, fontSize: "18px", fontWeight: "bold" }}
+                >
+                  Sample Sentences:
+                </h5>
+                {explainer?.sentences.map((item, index) => (
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      display: "flex",
+                      alignItems: "start",
+                      gap: "16px",
+                    }}
+                  >
+                    <p style={{ fontWeight: "bold", color: "#99a1af" }}>
+                      {index + 1}.
+                    </p>
+                    <div>
+                      <p>{item.en}</p>
+                      <p style={{ marginTop: "10px" }}>{item.cn}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </ScrollArea>
         <div style={{ height: "10%" }}></div>
       </div>
