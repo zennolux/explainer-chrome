@@ -1,38 +1,19 @@
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { IoVolumeMediumOutline as Volume } from "react-icons/io5";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { type Explainer } from "@zennolux/explainer-wasm";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { AudioPlayer } from "@/components/audio-player";
+import pkg from "../../../package.json";
 
 function App() {
+  const [open, setOpen] = useState(false);
   const [explainer, setExplainer] = useState<Explainer | undefined>();
-  const [openSheet, setOpenSheet] = useState(false);
-
-  const playAudio = (url: string) => {
-    chrome.runtime.sendMessage({
-      type: "PLAY_AUDIO",
-      target: "background",
-      data: { url },
-    });
-  };
 
   useEffect(() => {
-    const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-    console.info(theme);
-
     document.addEventListener("dblclick", () => {
       const word = window.getSelection()?.toString().trim();
+      console.info(word);
 
       if (!word || word?.length < 1) {
         return;
@@ -41,6 +22,8 @@ function App() {
       if (!/^[a-zA-Z]{2,}$/.test(word)) {
         return;
       }
+
+      document.body.style.overflow = "hidden";
 
       chrome.runtime.sendMessage(
         { type: "FETCH_EXPLAINED_DATA", target: "background", data: { word } },
@@ -54,112 +37,224 @@ function App() {
   useEffect(() => {
     console.info(explainer);
     if (explainer) {
-      setOpenSheet(true);
+      setOpen(true);
     }
   }, [explainer]);
 
   return (
-    <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-      <SheetContent
-        className="tw:border-border tw:outline-ring/50 tw:bg-background tw:text-foreground tw:h-full tw:font-mon"
-        style={{ zIndex: 1000000 }}
-        side="bottom"
+    <div style={{ display: `${open ? "block" : "none"}` }}>
+      <IoCloseCircleOutline
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          zIndex: 20000,
+          color: "#99a1af",
+          fontSize: "24px",
+        }}
+        onClick={() => setOpen(false)}
+      />
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          height: "100vh",
+          width: "400px",
+          background: "#1e2939",
+          color: "white",
+          zIndex: 10000,
+          fontSize: "18px",
+        }}
       >
-        <SheetHeader className="tw:h-[12%]">
-          <SheetTitle className="tw:flex tw:justify-center tw:items-center">
+        <div
+          style={{
+            height: "15%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
+        >
+          <h2
+            style={{ marginTop: "1rem", fontSize: "24px", fontWeight: "bold" }}
+          >
             {explainer?.word}
-          </SheetTitle>
-          <SheetDescription className="tw:mt-2 tw:flex tw:justify-center tw:items-center tw:gap-2">
+          </h2>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <p>[{explainer?.pronunciation.phonetic_symbol}]</p>
             <p>
-              <Volume
-                className="tw:text-2xl tw:hover:text-gray-300"
-                onClick={() => playAudio(explainer?.pronunciation.audio_url!)}
-              />
+              <AudioPlayer url={explainer?.pronunciation.audio_url!} />
             </p>
-          </SheetDescription>
-        </SheetHeader>
-        <ScrollArea className="tw:w-[99%] tw:h-[78%]">
-          <div className="tw:mt-2 tw:mx-2">
-            <h4 className="tw:dark:text-gray-200">Basic Meanings:</h4>
-            {explainer?.basic_meanings.map((item) => (
-              <div className="tw:mt-2 tw:flex tw:gap-2">
-                <h4 className="tw:flex tw:justify-center tw:items-center tw:text-gray-100 tw:font-extrabold tw:w-15 tw:h-5 tw:bg-gray-800 tw:shadow-background">
-                  {item.attr}
-                </h4>
-                <p className="tw:dark:text-gray-300">{item.value}</p>
-              </div>
-            ))}
           </div>
-          {explainer?.advanced_meanings.length! > 0 && (
-            <div className="tw:mt-2 tw:mx-2">
-              <h4 className="tw:dark:text-gray-200">Advanced Meanings:</h4>
-              {explainer?.advanced_meanings.map((item, index) => (
-                <div className="tw:mt-2" key={index}>
-                  <div className="tw:flex tw:flex-col tw:gap-2">
-                    <h4 className="tw:flex tw:justify-center tw:items-center tw:text-gray-100 tw:font-extrabold tw:w-15 tw:h-5 tw:bg-gray-800 tw:shadow-background">
-                      {item.attr}
-                    </h4>
-                    <div>
-                      {item.values.map((value, key) => (
-                        <>
-                          <div className="tw:flex tw:gap-2 tw:mt-2" key={key}>
-                            <h4 className="tw:text-gray-500">{key + 1}.</h4>
-                            <div className="tw:flex tw:flex-col tw:gap-1">
-                              <p>{value.en}</p>
-                              <p>{value.cn}</p>
-                            </div>
-                          </div>
-                          {key < item.values.length - 1 && (
-                            <Separator className="tw:mt-1" />
-                          )}
-                        </>
-                      ))}
-                    </div>
-                  </div>
+        </div>
+        <ScrollArea style={{ height: "75%" }}>
+          <div
+            style={{
+              marginTop: "16px",
+              marginLeft: "16px",
+              marginRight: "16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "30px",
+            }}
+          >
+            <div>
+              <h5
+                style={{ marginTop: 0, fontSize: "18px", fontWeight: "bold" }}
+              >
+                Basic Meanings:
+              </h5>
+              {explainer?.basic_meanings.map((item) => (
+                <div
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: "bold",
+                      width: "64px",
+                      height: "24px",
+                      background: "#99a1af",
+                      display: "flex",
+                      flexShrink: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    {item.attr}
+                  </p>
+                  <p style={{ flex: 1 }}>{item.value}</p>
                 </div>
               ))}
             </div>
-          )}
-          {explainer?.sentences.length! > 0 && (
-            <div className="tw:mt-2 tw:mx-2">
-              <h4 className="tw:dark:text-gray-200">Sample Sentences:</h4>
-              {explainer?.sentences.map((item, index) => (
-                <div className="tw:mt-2" key={index}>
-                  <div className="tw:flex tw:gap-2 tw:items-start">
-                    <div className="tw:flex tw:gap-1">
-                      <h4 className="tw:text-gray-500">{index + 1}.</h4>
+            {explainer?.advanced_meanings.length! > 0 && (
+              <div>
+                <h5
+                  style={{ marginTop: 0, fontSize: "18px", fontWeight: "bold" }}
+                >
+                  Advanced Meanings:
+                </h5>
+                {explainer?.advanced_meanings.map((item) => (
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        width: "64px",
+                        height: "24px",
+                        background: "#99a1af",
+                        display: "flex",
+                        flexShrink: 0,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {item.attr}
+                    </p>
+                    {item.values.map((value, index) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "start",
+                          gap: "16px",
+                        }}
+                      >
+                        <p style={{ fontWeight: "bold", color: "#99a1af" }}>
+                          {index + 1}.
+                        </p>
+                        <div>
+                          <p>{value.en}</p>
+                          <p style={{ marginTop: "10px" }}>{value.cn}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+            {explainer?.sentences.length! > 0 && (
+              <div>
+                <h5
+                  style={{ marginTop: 0, fontSize: "18px", fontWeight: "bold" }}
+                >
+                  Sample Sentences:
+                </h5>
+                {explainer?.sentences.map((item, index) => (
+                  <div
+                    style={{
+                      marginTop: "16px",
+                      display: "flex",
+                      alignItems: "start",
+                      gap: "16px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "5px",
+                      }}
+                    >
+                      <p style={{ fontWeight: "bold", color: "#99a1af" }}>
+                        {index + 1}.
+                      </p>
                       <p>
-                        <Volume
-                          className="tw:text-2xl tw:text-gray-400 tw:hover:text-gray-300"
-                          onClick={() => playAudio(item.audio_url)}
-                        />
+                        <AudioPlayer url={item.audio_url} />
                       </p>
                     </div>
-                    <div className="tw:flex tw:flex-col tw:gap-1">
+                    <div>
                       <p>
                         {parse(
                           item.en.replace(
                             new RegExp(`(${explainer.word})`, "gi"),
-                            `<span className="tw:font-extrabold tw:dark:text-gray-100 tw:underline tw:underline-offset-4">$1</span>`
+                            `<span className="tw:text-gray-300 tw:underline tw:underline-offset-8">$1</span>`
                           )
                         )}
                       </p>
-                      <p>{item.cn}</p>
+                      <p style={{ marginTop: "10px" }}>{item.cn}</p>
                     </div>
                   </div>
-                  {index < explainer.sentences.length - 1 && (
-                    <Separator className="tw:mt-1" />
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-          <ScrollBar orientation="vertical" />
+                ))}
+              </div>
+            )}
+          </div>
         </ScrollArea>
-        <SheetFooter className="tw:h-[10%] tw:w-full"></SheetFooter>
-      </SheetContent>
-    </Sheet>
+        <div
+          className="tw:text-gray-500"
+          style={{
+            height: "10%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <p className="tw:underline tw:underline-offset-8">
+            <a
+              style={{ color: "#6a7282" }}
+              href="https://github.com/zennolux/explainer"
+              target="_blank"
+            >
+              {pkg.name}
+            </a>
+          </p>
+          <p>v{pkg.version}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
