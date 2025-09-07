@@ -5,6 +5,7 @@ import { type Explainer } from "@zennolux/explainer-wasm";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { AudioPlayer } from "@/components/audio-player";
 import pkg from "../../../package.json";
+import { AttrTag } from "@/components/attr-tag";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -115,20 +116,7 @@ function App() {
                     gap: "16px",
                   }}
                 >
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      width: "64px",
-                      height: "24px",
-                      background: "#99a1af",
-                      display: "flex",
-                      flexShrink: 0,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    {item.attr}
-                  </p>
+                  <AttrTag value={item.attr} />
                   <p style={{ flex: 1 }}>{item.value}</p>
                 </div>
               ))}
@@ -149,20 +137,7 @@ function App() {
                       gap: "10px",
                     }}
                   >
-                    <p
-                      style={{
-                        fontWeight: "bold",
-                        width: "64px",
-                        height: "24px",
-                        background: "#99a1af",
-                        display: "flex",
-                        flexShrink: 0,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      {item.attr}
-                    </p>
+                    <AttrTag value={item.attr} />
                     {item.values.map((value, index) => (
                       <div
                         style={{
