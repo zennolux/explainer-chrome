@@ -3,9 +3,12 @@ import parse from "html-react-parser";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { type Explainer } from "@zennolux/explainer-wasm";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { AudioPlayer } from "@/components/audio-player";
-import pkg from "../../../package.json";
-import { AttrTag } from "@/components/attr-tag";
+import {
+  AttrTag,
+  AudioPlayer,
+  Footer,
+  Paragraph,
+} from "@/components/explainer";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -117,7 +120,7 @@ function App() {
                   }}
                 >
                   <AttrTag value={item.attr} />
-                  <p style={{ flex: 1 }}>{item.value}</p>
+                  <Paragraph>{item.value}</Paragraph>
                 </div>
               ))}
             </div>
@@ -146,12 +149,16 @@ function App() {
                           gap: "16px",
                         }}
                       >
-                        <p style={{ fontWeight: "bold", color: "#99a1af" }}>
+                        <Paragraph
+                          style={{ fontWeight: "bold", color: "#99a1af" }}
+                        >
                           {index + 1}.
-                        </p>
+                        </Paragraph>
                         <div>
-                          <p>{value.en}</p>
-                          <p style={{ marginTop: "10px" }}>{value.cn}</p>
+                          <Paragraph>{value.en}</Paragraph>
+                          <Paragraph style={{ marginTop: "10px" }}>
+                            {value.cn}
+                          </Paragraph>
                         </div>
                       </div>
                     ))}
@@ -183,23 +190,27 @@ function App() {
                         gap: "5px",
                       }}
                     >
-                      <p style={{ fontWeight: "bold", color: "#99a1af" }}>
+                      <Paragraph
+                        style={{ fontWeight: "bold", color: "#99a1af" }}
+                      >
                         {index + 1}.
-                      </p>
+                      </Paragraph>
                       <p>
                         <AudioPlayer url={item.audio_url} />
                       </p>
                     </div>
                     <div>
-                      <p>
+                      <Paragraph>
                         {parse(
                           item.en.replace(
                             new RegExp(`(${explainer.word})`, "gi"),
                             `<span className="tw:text-gray-300 tw:underline tw:underline-offset-[5px]">$1</span>`
                           )
                         )}
-                      </p>
-                      <p style={{ marginTop: "10px" }}>{item.cn}</p>
+                      </Paragraph>
+                      <Paragraph style={{ marginTop: "10px" }}>
+                        {item.cn}
+                      </Paragraph>
                     </div>
                   </div>
                 ))}
@@ -207,27 +218,7 @@ function App() {
             )}
           </div>
         </ScrollArea>
-        <div
-          className="tw:text-gray-500"
-          style={{
-            height: "10%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
-          }}
-        >
-          <p className="tw:underline tw:underline-offset-8">
-            <a
-              style={{ color: "#6a7282" }}
-              href="https://github.com/zennolux/explainer"
-              target="_blank"
-            >
-              {pkg.name}
-            </a>
-          </p>
-          <p>v{pkg.version}</p>
-        </div>
+        <Footer />
       </div>
     </div>
   );
