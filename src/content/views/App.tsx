@@ -69,6 +69,7 @@ function App() {
           color: "white",
           zIndex: 10000,
           fontSize: "18px",
+          fontFamily: "SauceCodePro",
         }}
       >
         <div

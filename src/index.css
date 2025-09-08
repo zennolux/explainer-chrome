@@ -109,3 +109,10 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+@font-face {
+  font-family: "SauceCodePro";
+  src: url("/public/SauceCodeProNerdFont-Regular.ttf") format(truetype);
+  font-weight: normal;
+  font-style: normal;
+}
