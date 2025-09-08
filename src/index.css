@@ -109,3 +109,16 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+@keyframes appear {
+  to {
+    right: 0;
+  }
+}
+
+.explainer-animation {
+  animation-name: appear;
+  animation-duration: 1.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}

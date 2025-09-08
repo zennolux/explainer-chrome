@@ -13,7 +13,7 @@ export function AudioPlayer({ url }: { url: string }) {
 
   return (
     <Volume
-      className="tw:text-gray-400 tw:hover:text-gray-200"
+      className="tw:text-gray-400 tw:hover:text-gray-200 tw:animate-ping"
       style={{ fontSize: "24px" }}
       onClick={() => playAudio(url)}
     />
