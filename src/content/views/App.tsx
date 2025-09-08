@@ -69,7 +69,8 @@ function App() {
           color: "white",
           zIndex: 10000,
           fontSize: "18px",
-          fontFamily: "SauceCodePro",
+          boxShadow:
+            "0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
         }}
       >
         <div
@@ -111,8 +112,9 @@ function App() {
               >
                 Basic Meanings:
               </h5>
-              {explainer?.basic_meanings.map((item) => (
+              {explainer?.basic_meanings.map((item, index) => (
                 <div
+                  key={index}
                   style={{
                     marginTop: "10px",
                     display: "flex",
@@ -132,8 +134,9 @@ function App() {
                 >
                   Advanced Meanings:
                 </h5>
-                {explainer?.advanced_meanings.map((item) => (
+                {explainer?.advanced_meanings.map((item, key) => (
                   <div
+                    key={key}
                     style={{
                       marginTop: "16px",
                       display: "flex",
@@ -144,6 +147,7 @@ function App() {
                     <AttrTag value={item.attr} />
                     {item.values.map((value, index) => (
                       <div
+                        key={index}
                         style={{
                           display: "flex",
                           alignItems: "start",
@@ -176,6 +180,7 @@ function App() {
                 </h5>
                 {explainer?.sentences.map((item, index) => (
                   <div
+                    key={index}
                     style={{
                       marginTop: "16px",
                       display: "flex",

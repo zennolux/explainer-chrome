@@ -47,7 +47,12 @@ function ScrollBar({
     >
       <ScrollAreaPrimitive.ScrollAreaThumb
         data-slot="scroll-area-thumb"
-        className="tw:bg-border tw:relative tw:flex-1 tw:rounded-full"
+        style={{
+          backgroundColor: "#e5e7eb",
+          position: "relative",
+          flex: 1,
+          borderRadius: "calc(infinity * 1px)",
+        }}
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   );
