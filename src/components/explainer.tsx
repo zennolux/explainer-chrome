@@ -2,7 +2,13 @@ import { type PropsWithChildren, type CSSProperties } from "react";
 import { IoVolumeMediumOutline as Volume } from "react-icons/io5";
 import pkg from "../../package.json";
 
-export function AudioPlayer({ url }: { url: string }) {
+export function AudioPlayer({
+  url,
+  isPlaying = false,
+}: {
+  url: string;
+  isPlaying?: boolean;
+}) {
   const playAudio = (url: string) => {
     chrome.runtime.sendMessage({
       type: "PLAY_AUDIO",
@@ -13,7 +19,9 @@ export function AudioPlayer({ url }: { url: string }) {
 
   return (
     <Volume
-      className="tw:text-gray-400 tw:hover:text-gray-200 tw:animate-ping"
+      className={`tw:text-gray-400 tw:hover:text-gray-200 ${
+        isPlaying && "tw:animate-ping"
+      }`}
       style={{ fontSize: "24px" }}
       onClick={() => playAudio(url)}
     />

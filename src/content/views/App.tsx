@@ -9,6 +9,7 @@ import {
   Footer,
   Paragraph,
 } from "@/components/explainer";
+import { hideVerticalScrollbar, showVerticalScrollbar } from "@/lib/scrollbar";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,6 @@ function App() {
   useEffect(() => {
     document.addEventListener("dblclick", () => {
       const word = window.getSelection()?.toString().trim();
-      console.info(word);
 
       if (!word || word?.length < 1) {
         return;
@@ -26,8 +26,6 @@ function App() {
       if (!/^[a-zA-Z]{2,}$/.test(word)) {
         return;
       }
-
-      document.body.style.overflow = "hidden";
 
       chrome.runtime.sendMessage(
         { type: "FETCH_EXPLAINED_DATA", target: "background", data: { word } },
@@ -44,6 +42,14 @@ function App() {
       setOpen(true);
     }
   }, [explainer]);
+
+  useEffect(() => {
+    if (open) {
+      hideVerticalScrollbar();
+      return;
+    }
+    showVerticalScrollbar();
+  }, [open]);
 
   return (
     <div
