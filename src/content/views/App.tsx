@@ -33,6 +33,9 @@ function App() {
       chrome.runtime.sendMessage(
         { type: "FETCH_EXPLAINED_DATA", target: "background", data: { word } },
         (response: Explainer | undefined) => {
+          if (!response) {
+            return;
+          }
           setExplainer(response);
         }
       );
