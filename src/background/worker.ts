@@ -17,7 +17,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         await playAudio(data.url, sendResponse);
         break;
       case "AUDIO_COMPLETED_TO_PLAY":
-        await closeDocument();
+        await audioCompletedToPlay(message);
         break;
       default:
         throw new Error(`Unexpected message type: ${type}`);
@@ -63,4 +63,19 @@ async function playAudio(url: string, sendResponse: CallableFunction) {
     });
 
   sendResponse(true);
+}
+
+async function audioCompletedToPlay(message: any) {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (tabs.length < 1) {
+      return;
+    }
+    chrome.tabs
+      .sendMessage(tabs[0].id!, { ...message, target: "contentscript" })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  });
+
+  await closeDocument();
 }

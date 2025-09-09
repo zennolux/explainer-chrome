@@ -14,6 +14,9 @@ import { hideVerticalScrollbar, showVerticalScrollbar } from "@/lib/scrollbar";
 function App() {
   const [open, setOpen] = useState(false);
   const [explainer, setExplainer] = useState<Explainer | undefined>();
+  const [audioPlaying, setAudioPlaying] = useState<{
+    [prop: string]: boolean;
+  }>();
 
   useEffect(() => {
     document.addEventListener("dblclick", () => {
@@ -33,6 +36,21 @@ function App() {
           setExplainer(response);
         }
       );
+    });
+
+    chrome.runtime.onMessage.addListener((message) => {
+      const { target, type, data } = message;
+
+      if (target != "contentscript") {
+        return;
+      }
+
+      if (type == "AUDIO_COMPLETED_TO_PLAY" && data.ended) {
+        console.info(message);
+        setAudioPlaying({ [data.url]: false });
+      }
+
+      return true;
     });
   }, []);
 
@@ -94,7 +112,16 @@ function App() {
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <p>[{explainer?.pronunciation.phonetic_symbol}]</p>
           <p>
-            <AudioPlayer url={explainer?.pronunciation.audio_url!} />
+            <AudioPlayer
+              url={explainer?.pronunciation.audio_url!}
+              onPlay={(url: string) => {
+                setAudioPlaying({ [url]: true });
+              }}
+              isPlaying={
+                audioPlaying &&
+                audioPlaying[explainer?.pronunciation.audio_url!]
+              }
+            />
           </p>
         </div>
       </div>
@@ -201,7 +228,13 @@ function App() {
                       {index + 1}.
                     </Paragraph>
                     <p>
-                      <AudioPlayer url={item.audio_url} />
+                      <AudioPlayer
+                        url={item.audio_url}
+                        onPlay={(url: string) =>
+                          setAudioPlaying({ [url]: true })
+                        }
+                        isPlaying={audioPlaying && audioPlaying[item.audio_url]}
+                      />
                     </p>
                   </div>
                   <div>

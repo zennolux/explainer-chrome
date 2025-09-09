@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener((message: Message) => {
     chrome.runtime.sendMessage({
       type: "AUDIO_COMPLETED_TO_PLAY",
       target: "background",
-      data: true,
+      data: { ended: true, url: message.data.url },
     });
   });
 });

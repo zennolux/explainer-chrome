@@ -4,17 +4,21 @@ import pkg from "../../package.json";
 
 export function AudioPlayer({
   url,
+  onPlay,
   isPlaying = false,
 }: {
   url: string;
+  onPlay: CallableFunction;
   isPlaying?: boolean;
 }) {
   const playAudio = (url: string) => {
-    chrome.runtime.sendMessage({
-      type: "PLAY_AUDIO",
-      target: "background",
-      data: { url },
-    });
+    chrome.runtime
+      .sendMessage({
+        type: "PLAY_AUDIO",
+        target: "background",
+        data: { url },
+      })
+      .then(() => onPlay(url));
   };
 
   return (
