@@ -75,7 +75,7 @@ export function Footer() {
       <p className="tw:underline tw:underline-offset-8">
         <a
           style={{ color: "#6a7282" }}
-          href="https://github.com/zennolux/explainer"
+          href="https://github.com/zennolux/explainer-chrome-extension"
           target="_blank"
         >
           {pkg.name}
