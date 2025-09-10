@@ -2,6 +2,7 @@
   "name": "explainer",
   "type": "module",
   "version": "1.0.0",
+  "homepage": "https://github.com/zennolux/explainer-chrome",
   "private": true,
   "scripts": {
     "dev": "vite",
