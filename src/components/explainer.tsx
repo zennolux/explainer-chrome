@@ -8,17 +8,21 @@ export function AudioPlayer({
   isPlaying = false,
 }: {
   url: string;
-  onPlay: CallableFunction;
+  onPlay?: CallableFunction;
   isPlaying?: boolean;
 }) {
-  const playAudio = (url: string) => {
-    chrome.runtime
-      .sendMessage({
-        type: "PLAY_AUDIO",
-        target: "background",
-        data: { url },
-      })
-      .then(() => onPlay(url));
+  const playAudio = async (url: string) => {
+    if (!chrome.runtime?.id) {
+      return;
+    }
+
+    const response = await chrome.runtime.sendMessage({
+      type: "PLAY_AUDIO",
+      target: "background",
+      data: { url },
+    });
+
+    true === response.startPlay && onPlay && onPlay(url);
   };
 
   return (
