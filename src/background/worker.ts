@@ -70,12 +70,13 @@ async function audioCompletedToPlay(message: any) {
     if (tabs.length < 1) {
       return;
     }
-    chrome.tabs
-      .sendMessage(tabs[0].id!, { ...message, target: "contentscript" })
-      .catch((error) => {
-        throw new Error(error);
-      });
+    chrome.tabs.sendMessage(
+      tabs[0].id!,
+      {
+        ...message,
+        target: "contentscript",
+      },
+      async (response) => response && (await closeDocument())
+    );
   });
-
-  await closeDocument();
 }

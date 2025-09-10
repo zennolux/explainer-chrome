@@ -41,19 +41,19 @@ function App() {
       );
     });
 
-    chrome.runtime.onMessage.addListener((message) => {
+    chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       const { target, type, data } = message;
 
       if (target != "contentscript") {
         return;
       }
 
-      if (type == "AUDIO_COMPLETED_TO_PLAY" && data.ended) {
-        console.info(message);
-        setAudioPlaying({ [data.url]: false });
+      if (type != "AUDIO_COMPLETED_TO_PLAY" || !data.ended) {
+        return;
       }
 
-      return true;
+      setAudioPlaying({ [data.url]: false });
+      sendResponse(true);
     });
   }, []);
 
