@@ -1,6 +1,100 @@
 import { type PropsWithChildren, type CSSProperties } from "react";
-import { IoVolumeMediumOutline as Volume } from "react-icons/io5";
-import pkg from "../../package.json";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  IoVolumeMediumOutline as Volume,
+  IoCloseCircleOutline,
+} from "react-icons/io5";
+import { name, version, homepage } from "../../package.json";
+
+export function Container({
+  children,
+  open,
+  setOpen,
+}: PropsWithChildren<{ open: boolean; setOpen: CallableFunction }>) {
+  return (
+    <div
+      className={`${open ? "explainer-animation" : "tw:hidden"}`}
+      style={{
+        position: "fixed",
+        top: 0,
+        right: "-400px",
+        height: "100vh",
+        width: "400px",
+        background: "#1e2939",
+        color: "#ebe7eb",
+        zIndex: 10000,
+        fontSize: "18px",
+        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
+      }}
+    >
+      <IoCloseCircleOutline
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          zIndex: 20000,
+          color: "#99a1af",
+          fontSize: "24px",
+        }}
+        onClick={() => setOpen(false)}
+      />
+      {children}
+    </div>
+  );
+}
+
+export function Header({ children }: PropsWithChildren) {
+  return (
+    <div
+      style={{
+        height: "15%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "8px",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function Content({ children }: PropsWithChildren) {
+  return (
+    <ScrollArea style={{ height: "75%" }}>
+      <div
+        style={{
+          marginTop: "16px",
+          marginLeft: "16px",
+          marginRight: "16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "30px",
+        }}
+      >
+        {children}
+      </div>
+    </ScrollArea>
+  );
+}
+
+export function Title({
+  children,
+  size = "normal",
+}: PropsWithChildren<{ size?: ["large", "normal"][number] }>) {
+  return (
+    <h5
+      style={{
+        marginTop: 0,
+        fontSize: size == "large" ? "24px" : "18px",
+        fontWeight: "bold",
+      }}
+    >
+      {children}
+    </h5>
+  );
+}
 
 export function AudioPlayer({
   url,
@@ -77,15 +171,11 @@ export function Footer() {
       }}
     >
       <p className="tw:underline tw:underline-offset-8">
-        <a
-          style={{ color: "#6a7282" }}
-          href="https://github.com/zennolux/explainer-chrome-extension"
-          target="_blank"
-        >
-          {pkg.name}
+        <a style={{ color: "#6a7282" }} href={homepage} target="_blank">
+          {name}
         </a>
       </p>
-      <p>v{pkg.version}</p>
+      <p>{version}</p>
     </div>
   );
 }
