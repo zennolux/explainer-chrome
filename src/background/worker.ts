@@ -52,17 +52,17 @@ async function fetchExplainedData(
 async function playAudio(url: string, sendResponse: CallableFunction) {
   await createDocument();
 
-  chrome.runtime
-    .sendMessage({
+  try {
+    const response = await chrome.runtime.sendMessage({
       type: "PLAY_AUDIO",
       target: "offscreen",
       data: { url },
-    })
-    .catch((error) => {
-      throw new Error(error);
     });
 
-  sendResponse(true);
+    sendResponse(response);
+  } catch (error) {
+    sendResponse({ startPlay: false });
+  }
 }
 
 async function audioCompletedToPlay(message: any) {
@@ -70,13 +70,21 @@ async function audioCompletedToPlay(message: any) {
     if (tabs.length < 1) {
       return;
     }
+
     chrome.tabs.sendMessage(
       tabs[0].id!,
       {
         ...message,
         target: "contentscript",
       },
-      async (response) => response && (await closeDocument())
+      async (response) => {
+        if (chrome.runtime.lastError) {
+          console.error(chrome.runtime.lastError.message);
+          return;
+        }
+
+        response && (await closeDocument());
+      }
     );
   });
 }
