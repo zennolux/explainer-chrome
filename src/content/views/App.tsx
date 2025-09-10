@@ -19,6 +19,10 @@ function App() {
   }>();
 
   useEffect(() => {
+    if (!chrome.runtime?.id) {
+      return;
+    }
+
     document.addEventListener("dblclick", () => {
       const word = window.getSelection()?.toString().trim();
 
@@ -44,16 +48,17 @@ function App() {
     chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       const { target, type, data } = message;
 
-      if (target != "contentscript") {
-        return;
-      }
-
-      if (type != "AUDIO_COMPLETED_TO_PLAY" || !data.ended) {
+      if (
+        target != "contentscript" ||
+        type != "AUDIO_COMPLETED_TO_PLAY" ||
+        !data.ended
+      ) {
         return;
       }
 
       setAudioPlaying({ [data.url]: false });
       sendResponse(true);
+      return true;
     });
   }, []);
 
