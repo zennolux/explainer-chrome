@@ -4,19 +4,22 @@ type Message = {
   data: { [key: string]: string };
 };
 
-chrome.runtime.onMessage.addListener((message: Message) => {
-  if (message.target !== "offscreen") {
-    return false;
-  }
+chrome.runtime.onMessage.addListener(
+  (message: Message, _sender, sendResponse) => {
+    if (message.target !== "offscreen") {
+      return false;
+    }
 
-  const audio = new Audio(message.data.url);
-  audio.play();
+    const audio = new Audio(message.data.url);
+    audio.play();
+    sendResponse({ startPlay: true });
 
-  audio.addEventListener("ended", () => {
-    chrome.runtime.sendMessage({
-      type: "AUDIO_COMPLETED_TO_PLAY",
-      target: "background",
-      data: { ended: true, url: message.data.url },
+    audio.addEventListener("ended", () => {
+      chrome.runtime.sendMessage({
+        type: "AUDIO_COMPLETED_TO_PLAY",
+        target: "background",
+        data: { ended: true, url: message.data.url },
+      });
     });
-  });
-});
+  }
+);
