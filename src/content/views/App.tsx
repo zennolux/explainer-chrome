@@ -178,7 +178,7 @@ function App() {
                     {parse(
                       item.en.replace(
                         new RegExp(`(${explainer.word})`, "gi"),
-                        `<span className="tw:text-gray-300 tw:underline tw:underline-offset-8">$1</span>`
+                        `<span className="tw:text-gray-300 tw:font-bold tw:underline tw:underline-offset-8">$1</span>`
                       )
                     )}
                   </Paragraph>
