@@ -19,13 +19,17 @@ export function Container({
 
   return (
     <div
-      className={`${open ? "explainer-animation" : "tw:hidden"}`}
+      className={`${
+        open
+          ? "tw:animate-explainer-appear"
+          : "tw:hidden tw:animate-explainer-disappear"
+      }`}
       style={{
         position: "fixed",
         top: 0,
-        right: "-400px",
+        right: "calc(-1 * var(--container-width))",
         height: "100vh",
-        width: "400px",
+        width: "var(--container-width)",
         background: "#1e2939",
         color: "#ebe7eb",
         zIndex: 10000,
@@ -71,9 +75,7 @@ export function Content({ children }: PropsWithChildren) {
     <ScrollArea style={{ height: "75%" }}>
       <div
         style={{
-          marginTop: "16px",
-          marginLeft: "16px",
-          marginRight: "16px",
+          margin: "16px",
           display: "flex",
           flexDirection: "column",
           gap: "30px",
