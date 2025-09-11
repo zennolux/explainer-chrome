@@ -132,4 +132,5 @@
 
 #explainer {
   --container-width: 400px;
+  --item-space: 16px;
 }

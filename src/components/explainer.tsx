@@ -31,7 +31,7 @@ export function Container({
         height: "100vh",
         width: "var(--container-width)",
         background: "#1e2939",
-        color: "#ebe7eb",
+        color: "#d1d5dc",
         zIndex: 10000,
         fontSize: "18px",
         boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
@@ -75,10 +75,10 @@ export function Content({ children }: PropsWithChildren) {
     <ScrollArea style={{ height: "75%" }}>
       <div
         style={{
-          margin: "16px",
+          margin: "var(--item-space)",
           display: "flex",
           flexDirection: "column",
-          gap: "30px",
+          gap: "calc(var(--item-space) + 10px)",
         }}
       >
         {children}

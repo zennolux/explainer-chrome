@@ -69,7 +69,13 @@ function App() {
     <Container open={open} setOpen={setOpen}>
       <Header>
         <Title size="large">{explainer?.word}</Title>
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--item-space)",
+          }}
+        >
           <p>[{explainer?.pronunciation.phonetic_symbol}]</p>
           <p>
             <AudioPlayer
@@ -95,7 +101,7 @@ function App() {
                 marginTop: "10px",
                 display: "flex",
                 alignItems: "center",
-                gap: "16px",
+                gap: "var(--item-space)",
               }}
             >
               <AttrTag value={item.attr} />
@@ -110,7 +116,7 @@ function App() {
               <div
                 key={key}
                 style={{
-                  marginTop: "16px",
+                  marginTop: "var(--item-space)",
                   display: "flex",
                   flexDirection: "column",
                   gap: "10px",
@@ -123,7 +129,7 @@ function App() {
                     style={{
                       display: "flex",
                       alignItems: "start",
-                      gap: "16px",
+                      gap: "var(--item-space)",
                     }}
                   >
                     <Paragraph style={{ fontWeight: "bold", color: "#99a1af" }}>
@@ -148,10 +154,10 @@ function App() {
               <div
                 key={index}
                 style={{
-                  marginTop: "16px",
+                  marginTop: "var(--item-space)",
                   display: "flex",
                   alignItems: "start",
-                  gap: "16px",
+                  gap: "var(--item-space)",
                 }}
               >
                 <div
