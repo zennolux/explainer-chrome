@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { type Explainer } from "@zennolux/explainer-wasm";
-import { hideVerticalScrollbar, showVerticalScrollbar } from "@/lib/scrollbar";
 import {
   AttrTag,
   AudioPlayer,
@@ -65,11 +64,6 @@ function App() {
   }, []);
 
   useEffect(() => explainer && setOpen(true), [explainer]);
-
-  useEffect(
-    () => (open ? hideVerticalScrollbar() : showVerticalScrollbar()),
-    [open]
-  );
 
   return (
     <Container open={open} setOpen={setOpen}>

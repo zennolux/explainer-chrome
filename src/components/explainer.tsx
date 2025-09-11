@@ -1,9 +1,10 @@
-import { type PropsWithChildren, type CSSProperties } from "react";
+import { type PropsWithChildren, type CSSProperties, useEffect } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   IoVolumeMediumOutline as Volume,
   IoCloseCircleOutline,
 } from "react-icons/io5";
+import { hideVerticalScrollbar, showVerticalScrollbar } from "@/lib/scrollbar";
 import { name, version, homepage } from "../../package.json";
 
 export function Container({
@@ -11,6 +12,11 @@ export function Container({
   open,
   setOpen,
 }: PropsWithChildren<{ open: boolean; setOpen: CallableFunction }>) {
+  useEffect(
+    () => (open ? hideVerticalScrollbar() : showVerticalScrollbar()),
+    [open]
+  );
+
   return (
     <div
       className={`${open ? "explainer-animation" : "tw:hidden"}`}
