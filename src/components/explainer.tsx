@@ -62,7 +62,7 @@ export function Header({ children }: PropsWithChildren) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        gap: "8px",
+        gap: "calc(var(--item-space) / 2)",
       }}
     >
       {children}
@@ -75,7 +75,6 @@ export function Content({ children }: PropsWithChildren) {
     <ScrollArea style={{ height: "75%" }}>
       <div
         style={{
-          //margin: "var(--item-space)",
           display: "flex",
           flexDirection: "column",
           gap: "calc(var(--item-space) + 10px)",
