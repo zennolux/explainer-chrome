@@ -75,7 +75,7 @@ export function Content({ children }: PropsWithChildren) {
     <ScrollArea style={{ height: "75%" }}>
       <div
         style={{
-          margin: "var(--item-space)",
+          //margin: "var(--item-space)",
           display: "flex",
           flexDirection: "column",
           gap: "calc(var(--item-space) + 10px)",
@@ -90,13 +90,18 @@ export function Content({ children }: PropsWithChildren) {
 export function Title({
   children,
   size = "normal",
-}: PropsWithChildren<{ size?: ["large", "normal"][number] }>) {
+  style,
+}: PropsWithChildren<{
+  size?: ["large", "normal"][number];
+  style?: CSSProperties;
+}>) {
   return (
     <h5
       style={{
         marginTop: 0,
         fontSize: size == "large" ? "24px" : "18px",
         fontWeight: "bold",
+        ...style,
       }}
     >
       {children}

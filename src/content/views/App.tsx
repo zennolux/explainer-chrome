@@ -41,6 +41,7 @@ function App() {
           if (!response) {
             return;
           }
+
           setExplainer(response);
         }
       );
@@ -58,7 +59,9 @@ function App() {
       }
 
       setAudioPlaying({ [data.url]: false });
+
       sendResponse(true);
+
       return true;
     });
   }, []);
@@ -92,13 +95,13 @@ function App() {
         </div>
       </Header>
       <Content>
-        <div>
+        <div style={{ padding: "0 var(--item-space) 0 var(--item-space)" }}>
           <Title>Basic Meanings:</Title>
           {explainer?.basic_meanings.map((item, index) => (
             <div
               key={index}
               style={{
-                marginTop: "10px",
+                marginTop: "var(--item-space)",
                 display: "flex",
                 alignItems: "center",
                 gap: "var(--item-space)",
@@ -110,7 +113,11 @@ function App() {
           ))}
         </div>
         {explainer?.advanced_meanings.length! > 0 && (
-          <div>
+          <div
+            style={{
+              padding: "0 var(--item-space) 0 var(--item-space)",
+            }}
+          >
             <Title>Advanced Meanings:</Title>
             {explainer?.advanced_meanings.map((item, key) => (
               <div
@@ -119,7 +126,7 @@ function App() {
                   marginTop: "var(--item-space)",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "10px",
+                  gap: "var(--item-space)",
                 }}
               >
                 <AttrTag value={item.attr} />
@@ -132,12 +139,14 @@ function App() {
                       gap: "var(--item-space)",
                     }}
                   >
-                    <Paragraph style={{ fontWeight: "bold", color: "#99a1af" }}>
+                    <Paragraph style={{ fontWeight: "bold" }}>
                       {index + 1}.
                     </Paragraph>
                     <div>
                       <Paragraph>{value.en}</Paragraph>
-                      <Paragraph style={{ marginTop: "10px" }}>
+                      <Paragraph
+                        style={{ marginTop: "calc(var(--item-space) / 2)" }}
+                      >
                         {value.cn}
                       </Paragraph>
                     </div>
@@ -149,15 +158,22 @@ function App() {
         )}
         {explainer?.sentences.length! > 0 && (
           <div>
-            <Title>Sample Sentences:</Title>
+            <Title style={{ paddingLeft: "var(--item-space)" }}>
+              Sample Sentences:
+            </Title>
             {explainer?.sentences.map((item, index) => (
               <div
                 key={index}
                 style={{
                   marginTop: "var(--item-space)",
+                  padding: "0 var(--item-space) 0 var(--item-space)",
                   display: "flex",
                   alignItems: "start",
                   gap: "var(--item-space)",
+                  backgroundColor:
+                    audioPlaying && audioPlaying[item.audio_url]
+                      ? "var(--highlight-bg)"
+                      : "",
                 }}
               >
                 <div
@@ -165,10 +181,10 @@ function App() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "5px",
+                    gap: "calc(var(--item-space) / 3)",
                   }}
                 >
-                  <Paragraph style={{ fontWeight: "bold", color: "#99a1af" }}>
+                  <Paragraph style={{ fontWeight: "bold" }}>
                     {index + 1}.
                   </Paragraph>
                   <p>
@@ -182,7 +198,7 @@ function App() {
                 <div
                   style={
                     audioPlaying && audioPlaying[item.audio_url]
-                      ? { color: "#e5e7eb" }
+                      ? { color: "var(--highlight-text)" }
                       : {}
                   }
                 >
@@ -194,7 +210,11 @@ function App() {
                       )
                     )}
                   </Paragraph>
-                  <Paragraph style={{ marginTop: "10px" }}>{item.cn}</Paragraph>
+                  <Paragraph
+                    style={{ marginTop: "calc(var(--item-space) / 2)" }}
+                  >
+                    {item.cn}
+                  </Paragraph>
                 </div>
               </div>
             ))}
