@@ -133,4 +133,6 @@
 #explainer {
   --container-width: 400px;
   --item-space: 16px;
+  --highlight-bg: #101828;
+  --highlight-text: #e5e7eb;
 }
